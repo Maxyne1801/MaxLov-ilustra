@@ -518,22 +518,67 @@
   }
 
   /* banner */
-  .hero-banner{
-    flex-direction: column-reverse;
-    text-align:center;
-    gap:20px;
-}
+@media (max-width: 768px) {
 
-.hero-left{
-    width:100%;
-}
+  .navbar {
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px 20px;
+  }
 
-.hero-right{
-    width:100%;
-}
+  /* Ajustes do Banner para Mobile */
+  .hero-banner {
+    height: auto;             /* Remove a altura fixa de 400px para o conteúdo respirar */
+    min-height: auto;
+    flex-direction: column;   /* Empilha os elementos */
+    align-items: center;
+    text-align: center;
+    padding: 30px 20px;
+    gap: 15px;
+  }
 
-.hero-character{
-    width:220px;
+  /* Força a Imagem a ficar no TOPO */
+  .hero-right {
+    order: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Força o Texto a ficar EMBAIXO */
+  .hero-left {
+    order: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Ajustes no Balão de Texto */
+  .tag {
+    display: inline-block;
+    max-width: 100%;
+    white-space: normal;      /* Permite que o texto quebre a linha dentro do balão */
+    line-height: 1.4;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+  }
+
+  /* Ajuste no Nome MAX LOVAR para caber na tela */
+  .hero-left h1 {
+    font-size: 2.2rem !important; /* Reduz o tamanho da fonte no celular */
+    line-height: 1.1;
+    word-break: break-word;
+  }
+
+  .hero-character {
+    width: 200px;             /* Tamanho adequado para a imagem no mobile */
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
 }
 /* lightbox */
 .lightbox{
