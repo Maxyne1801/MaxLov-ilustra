@@ -498,7 +498,6 @@
   box-sizing: border-box;
 }
 @media (max-width: 768px) {
-
   .info-section {
     grid-template-columns: 1fr;
     margin: 50px auto;
@@ -517,27 +516,16 @@
     grid-template-columns: 1fr;
   }
 
-  /* banner */
-@media (max-width: 768px) {
-
-  .navbar {
-    flex-direction: column;
-    gap: 20px;
-    padding: 30px 20px;
-  }
-
-  /* Ajustes do Banner para Mobile */
   .hero-banner {
-    height: auto;             /* Remove a altura fixa de 400px para o conteúdo respirar */
+    height: auto;
     min-height: auto;
-    flex-direction: column;   /* Empilha os elementos */
+    flex-direction: column;
     align-items: center;
     text-align: center;
     padding: 30px 20px;
     gap: 15px;
   }
 
-  /* Força a Imagem a ficar no TOPO */
   .hero-right {
     order: 1;
     width: 100%;
@@ -545,7 +533,6 @@
     justify-content: center;
   }
 
-  /* Força o Texto a ficar EMBAIXO */
   .hero-left {
     order: 2;
     width: 100%;
@@ -554,50 +541,153 @@
     align-items: center;
   }
 
-  /* Ajustes no Balão de Texto */
   .tag {
     display: inline-block;
     max-width: 100%;
-    white-space: normal;      /* Permite que o texto quebre a linha dentro do balão */
+    white-space: normal;
     line-height: 1.4;
     font-size: 0.95rem;
     margin-bottom: 15px;
   }
 
-  /* Ajuste no Nome MAX LOVAR para caber na tela */
   .hero-left h1 {
-    font-size: 2.2rem !important; /* Reduz o tamanho da fonte no celular */
+    font-size: 2.2rem !important;
     line-height: 1.1;
     word-break: break-word;
   }
 
   .hero-character {
-    width: 200px;             /* Tamanho adequado para a imagem no mobile */
+    width: 200px;
   }
 
   .portfolio-grid {
     grid-template-columns: 1fr;
   }
 
-}
-/* lightbox */
-.lightbox{
-    flex-direction:column;
+  .lightbox {
+    flex-direction: column;
+    padding: 70px 12px 24px;
+  }
+
+  .lightbox-gallery {
+    width: 100%;
+  }
+
+  .lightbox-img {
+    max-width: 76%;
+    max-height: 52vh;
+  }
+
+  .slide-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  .lightbox-description {
+    max-width: 100%;
+    padding: 0 8px;
+    font-size: 18px;
+  }
 }
 
-.lightbox-img{
-    max-width:100%;
-    max-height:60vh;
+/* ===== CARROSSEL DO LIGHTBOX ===== */
+.lightbox {
+  flex-direction: column;
+  padding: 75px 20px 30px;
 }
 
-.lightbox-description{
-    max-width:100%;
-    font-size:18px;
+.lightbox-gallery {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+  max-width: 1200px;
+  min-height: 120px;
 }
 
-
-
+.lightbox-img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 82%;
+  max-height: 65vh;
+  object-fit: contain;
+  border-radius: 25px;
+  border: 3px solid rgba(191, 145, 250, 0.7);
+  box-shadow: 0 0 40px rgba(211, 125, 252, 0.5);
 }
+
+.slide-btn {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(151, 63, 252, 0.78);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 19px;
+  line-height: 1;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.slide-btn:hover {
+  background: #8d4dff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.prev-btn { left: 0; }
+.next-btn { right: 0; }
+
+.slide-counter {
+  margin-top: 12px;
+  color: #4e2478;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.lightbox-description {
+  margin-top: 16px;
+  max-width: 800px;
+  color: rgb(51, 7, 109);
+  text-align: center;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  z-index: 5;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(151, 63, 252, 0.55);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
 .modal-content h2 {
   font-size: 2rem;
   margin-bottom: 30px;
@@ -715,27 +805,19 @@ footer {
 <body>
 
   
-  <!-- LIGHTBOX -->
+  <!-- LIGHTBOX / CARROSSEL -->
+  <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Visualização da arte">
+    <button class="close-btn" type="button" onclick="closeImage()" aria-label="Fechar">&times;</button>
 
-  <div class="lightbox" id="lightbox">
+    <div class="lightbox-gallery">
+      <button class="slide-btn prev-btn" type="button" onclick="changeSlide(-1)" aria-label="Imagem anterior">&#10094;</button>
+      <img class="lightbox-img" src="" alt="Arte ampliada">
+      <button class="slide-btn next-btn" type="button" onclick="changeSlide(1)" aria-label="Próxima imagem">&#10095;</button>
+    </div>
 
-    <span class="close-btn">✕</span>
-
-    <img class="lightbox-img" src="">
-
-    <div id="lightbox">
-
-    <span class="close-btn">&times;</span>
-
-    <img class="lightbox-img">
-
+    <div class="slide-counter" aria-live="polite"></div>
     <p class="lightbox-description"></p>
-
-</div>
-</div>
-
-
-  </nav>
+  </div>
 
   <!-- HERO -->
 
@@ -751,7 +833,7 @@ footer {
 
   <div class="hero-right">
 
-    <img src="img/Max.jpg" class="hero-character">
+    <img src="img/Zyon.webp" class="hero-character">
 
   </div>
 
@@ -880,6 +962,46 @@ footer {
         <p>Arte 13</p>
       </div>
 
+      <div class="portfolio-item"
+     onclick="openImage(this)"
+
+     data-description="Chibi para PNGTuber, feito em 5h dividas em 2 dias. Esse estilo tem uma render mais simples e anime, porém mantendo o semirealismo. Custaria R$60."
+
+     data-images='[
+       "img/ZyonChibi1.webp",
+       "img/ZyonChibi2.webp",
+       "img/ZyonChibi3.webp",
+       "img/ZyonChibi4.webp",
+       "img/ZyonChibi5.webp"
+     ]'>
+
+    <img src="img/ZyonChibi1.webp">
+
+    <p>Arte 14</p>
+
+    </div>
+
+    <div class="portfolio-item"
+        onclick="openImage(this)"
+        data-description="Arte do meu Original Character, Zyon. Fiz para treinar iluminação e levaram 10h dividas em 4 dias e meio e custaria em média R$110">
+       <img src="img/arte15.webp">
+        <p>Arte 15</p>
+      </div>
+
+    <div class="portfolio-item"
+        onclick="openImage(this)"
+        data-description="Arte feita para um livro de uma autora independente. Levaram 8h dividas em 4 dias e custou R$110">
+       <img src="img/arte16.webp">
+        <p>Arte 16</p>
+      </div>
+
+      <div class="portfolio-item"
+        onclick="openImage(this)"
+        data-description="Arte feita para um jogador de RPG que precisava ilustrar o OC que ele somente havia idealizado. Levaram 8h dividas em 3 dias e custou R$140">
+       <img src="img/arte17.webp">
+        <p>Arte 17</p>
+      </div>
+
       </div>
 
     </section>
@@ -985,7 +1107,7 @@ footer {
 
 <div class="commission-links">
 
-    <a href="https://artistree.io/maxyne.lovart18"
+    <a href="https://artistree.io/maxlov.ilustra"
        target="_blank"
        class="commission-btn">
        🎨 Artistree
@@ -1014,83 +1136,103 @@ footer {
 
   <!-- SCRIPT -->
 
+  <!-- SCRIPT DO LIGHTBOX / CARROSSEL -->
   <script>
-
     const lightbox = document.getElementById('lightbox');
-    
-    const lightboxDescription = document.querySelector('.lightbox-description');
+    const lightboxImg = lightbox.querySelector('.lightbox-img');
+    const lightboxDescription = lightbox.querySelector('.lightbox-description');
+    const slideCounter = lightbox.querySelector('.slide-counter');
+    const prevButton = lightbox.querySelector('.prev-btn');
+    const nextButton = lightbox.querySelector('.next-btn');
 
-    const lightboxImg = document.querySelector('.lightbox-img');
+    let currentImages = [];
+    let currentSlide = 0;
+    let touchStartX = 0;
 
-    const closeBtn = document.querySelector('.close-btn');
+    function openImage(element) {
+      const thumbnail = element.querySelector('img');
+      if (!thumbnail) return;
 
-  function openImage(element) {
-
-    const img = element.querySelector('img');
-
-    lightbox.style.display = 'flex';
-
-    lightboxImg.src = img.src;
-
-    lightboxDescription.textContent = element.dataset.description;
-
-  }
-
-    closeBtn.addEventListener('click', () => {
-
-      lightbox.style.display = 'none';
-
-    });
-
-    lightbox.addEventListener('click', (e) => {
-
-      if (e.target === lightbox) {
-
-        lightbox.style.display = 'none';
-
+      // data-images deve ser um array JSON com os caminhos de TODAS as versões.
+      // Sem data-images, o Lightbox usa somente a imagem da miniatura.
+      try {
+        const parsedImages = JSON.parse(element.dataset.images || '[]');
+        currentImages = Array.isArray(parsedImages)
+          ? parsedImages.filter(path => typeof path === 'string' && path.trim() !== '')
+          : [];
+      } catch (error) {
+        console.warn('O atributo data-images precisa conter um array JSON válido.', error);
+        currentImages = [];
       }
 
+      if (currentImages.length === 0) {
+        currentImages = [thumbnail.getAttribute('src')];
+      }
+
+      currentSlide = 0;
+      lightboxDescription.textContent = element.dataset.description || '';
+      showSlide();
+      lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function showSlide() {
+      if (!currentImages.length) return;
+
+      lightboxImg.src = currentImages[currentSlide];
+      lightboxImg.alt = `Imagem ${currentSlide + 1} de ${currentImages.length}`;
+
+      const hasMultiple = currentImages.length > 1;
+      prevButton.style.display = hasMultiple ? 'flex' : 'none';
+      nextButton.style.display = hasMultiple ? 'flex' : 'none';
+      slideCounter.style.display = hasMultiple ? 'block' : 'none';
+      slideCounter.textContent = `${currentSlide + 1} / ${currentImages.length}`;
+    }
+
+    function changeSlide(direction) {
+      if (currentImages.length <= 1) return;
+      currentSlide = (currentSlide + direction + currentImages.length) % currentImages.length;
+      showSlide();
+    }
+
+    function closeImage() {
+      lightbox.style.display = 'none';
+      lightboxImg.removeAttribute('src');
+      document.body.style.overflow = '';
+    }
+
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) closeImage();
     });
 
-    const popup = document.getElementById('popupMsg');
+    document.addEventListener('keydown', (event) => {
+      if (lightbox.style.display !== 'flex') return;
+      if (event.key === 'Escape') closeImage();
+      if (event.key === 'ArrowRight') changeSlide(1);
+      if (event.key === 'ArrowLeft') changeSlide(-1);
+    });
 
-const popupClose = document.querySelector('.popup-close');
+    // Deslizar para os lados em telas sensíveis ao toque.
+    lightbox.addEventListener('touchstart', (event) => {
+      touchStartX = event.changedTouches[0].screenX;
+    }, { passive: true });
 
-function abrirPopup() {
-
-  popup.style.display = 'flex';
-
-}
-
-popupClose.addEventListener('click', () => {
-
-  popup.style.display = 'none';
-
-});
-
-popup.addEventListener('click', (e) => {
-
-  if (e.target === popup) {
-
-    popup.style.display = 'none';
-
-  }
-
-});
-
+    lightbox.addEventListener('touchend', (event) => {
+      const touchEndX = event.changedTouches[0].screenX;
+      const distance = touchEndX - touchStartX;
+      if (Math.abs(distance) > 45) changeSlide(distance < 0 ? 1 : -1);
+    }, { passive: true });
   </script>
 <script>
 
 function openModal(id) {
   const modal = document.getElementById(id);
-
-  modal.style.display = "block";
+  if (modal) modal.style.display = "block";
 }
 
 function closeModal(id) {
   const modal = document.getElementById(id);
-
-  modal.style.display = "none";
+  if (modal) modal.style.display = "none";
 }
 
 
